@@ -15,13 +15,13 @@ export default function Navbar({ wallet, connect, disconnect: _disconnect, hasMe
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 bg-bg-surface/95 backdrop-blur-sm border-b border-border">
+    <nav className="sticky top-0 z-50 bg-bg-surface/95 backdrop-blur-sm border-b border-border shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Left: Logo */}
           <Link to="/" className="flex items-center gap-2 group">
             <span className="text-2xl">&#9889;</span>
-            <span className="text-xl font-bold text-brand group-hover:text-brand-hover transition-colors">
+            <span className="text-xl font-bold text-primary group-hover:text-primary/80 transition-colors">
               WeatherBets
             </span>
           </Link>
@@ -55,7 +55,7 @@ export default function Navbar({ wallet, connect, disconnect: _disconnect, hasMe
                 href="https://metamask.io/download/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 rounded-lg bg-brand/20 text-brand hover:bg-brand/30 font-medium text-sm transition-colors"
+                className="px-4 py-2 rounded-lg bg-primary/20 text-primary hover:bg-primary/30 font-medium text-sm transition-colors"
               >
                 Install MetaMask
               </a>
@@ -63,7 +63,7 @@ export default function Navbar({ wallet, connect, disconnect: _disconnect, hasMe
               <button
                 onClick={connect}
                 disabled={isConnecting}
-                className="px-4 py-2 rounded-lg bg-brand hover:bg-brand-hover text-white font-medium text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-4 py-2 rounded-lg bg-light text-bg hover:bg-light/90 font-medium text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
               >
                 {isConnecting ? (
                   <span className="flex items-center gap-2">
@@ -88,7 +88,7 @@ export default function Navbar({ wallet, connect, disconnect: _disconnect, hasMe
               <div className="flex items-center gap-3">
                 <div className="px-3 py-1.5 rounded-lg bg-bg-hover border border-border text-sm">
                   <span className="text-slate-400">{wallet.balance}</span>
-                  <span className="text-brand ml-1 font-medium">MON</span>
+                  <span className="text-primary ml-1 font-medium">MON</span>
                 </div>
                 <div className="px-3 py-1.5 rounded-lg bg-bg-hover border border-border text-sm font-mono text-slate-300">
                   {formatAddress(wallet.address!)}
@@ -149,7 +149,7 @@ export default function Navbar({ wallet, connect, disconnect: _disconnect, hasMe
                 href="https://metamask.io/download/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full text-center py-2 px-3 rounded-lg bg-brand/20 text-brand font-medium text-sm"
+                className="block w-full text-center py-2 px-3 rounded-lg bg-primary/20 text-primary font-medium text-sm"
               >
                 Install MetaMask
               </a>
@@ -160,7 +160,7 @@ export default function Navbar({ wallet, connect, disconnect: _disconnect, hasMe
                   setMobileOpen(false);
                 }}
                 disabled={isConnecting}
-                className="w-full py-2 px-3 rounded-lg bg-brand hover:bg-brand-hover text-white font-medium text-sm transition-colors disabled:opacity-50"
+                className="w-full py-2 px-3 rounded-lg bg-light text-bg hover:bg-light/90 font-medium text-sm transition-colors disabled:opacity-50 shadow-lg"
               >
                 {isConnecting ? "Connecting..." : "Connect Wallet"}
               </button>

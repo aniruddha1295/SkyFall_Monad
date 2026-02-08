@@ -81,12 +81,12 @@ export default function BetModal({ isOpen, onClose, market, isYes, wallet, onSuc
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/60 backdrop-blur-lg"
         onClick={modalState === "input" ? onClose : undefined}
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-md bg-bg-surface border border-border rounded-2xl shadow-2xl shadow-black/50 overflow-hidden">
+      <div className="relative w-full max-w-md bg-bg-surface border border-primary/30 rounded-2xl shadow-2xl shadow-primary/40 overflow-hidden animate-in fade-in duration-200">
         {/* Header */}
         <div className="flex items-center justify-between p-5 border-b border-border">
           <h2 className="text-lg font-bold text-white">Place Bet</h2>
@@ -129,9 +129,9 @@ export default function BetModal({ isOpen, onClose, market, isYes, wallet, onSuc
                     placeholder="0.0"
                     min="0"
                     step="0.01"
-                    className="w-full bg-bg-hover border border-border rounded-xl px-4 py-3 pr-16 text-white text-lg font-medium placeholder-slate-600 focus:outline-none focus:border-brand/50 focus:ring-1 focus:ring-brand/30 transition-colors"
+                    className="w-full bg-bg-hover border border-border rounded-xl px-4 py-3 pr-16 text-white text-lg font-medium placeholder-slate-600 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/50 focus:shadow-lg focus:shadow-primary/30 transition-all duration-300"
                   />
-                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-medium text-brand">
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-medium text-primary">
                     MON
                   </span>
                 </div>
@@ -143,10 +143,10 @@ export default function BetModal({ isOpen, onClose, market, isYes, wallet, onSuc
                   <button
                     key={quickAmount}
                     onClick={() => setAmount(quickAmount)}
-                    className={`flex-1 py-2 rounded-lg text-sm font-medium border transition-colors ${
+                    className={`flex-1 py-2 rounded-lg text-sm font-medium border transition-all duration-200 ${
                       amount === quickAmount
-                        ? "bg-brand/20 border-brand/40 text-brand"
-                        : "bg-bg-hover border-border text-slate-400 hover:text-white hover:border-slate-500"
+                        ? "bg-primary/20 border-primary/40 text-primary shadow-lg shadow-primary/30 scale-105"
+                        : "bg-bg-hover border-border text-slate-400 hover:text-white hover:border-slate-500 hover:shadow-md hover:scale-102 active:scale-95"
                     }`}
                   >
                     {quickAmount}
@@ -170,8 +170,8 @@ export default function BetModal({ isOpen, onClose, market, isYes, wallet, onSuc
                 disabled={!amount || parseFloat(amount) <= 0}
                 className={`w-full py-3.5 rounded-xl text-white font-bold text-lg transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed ${
                   isYes
-                    ? "bg-yes hover:bg-yes/90 active:scale-[0.98]"
-                    : "bg-no hover:bg-no/90 active:scale-[0.98]"
+                    ? "bg-yes hover:bg-yes/90 hover:shadow-2xl hover:shadow-yes/50 active:scale-[0.98] shadow-lg shadow-yes/30"
+                    : "bg-no hover:bg-no/90 hover:shadow-2xl hover:shadow-no/50 active:scale-[0.98] shadow-lg shadow-no/30"
                 }`}
               >
                 Place {sideLabel} Bet
@@ -182,7 +182,7 @@ export default function BetModal({ isOpen, onClose, market, isYes, wallet, onSuc
           {/* Confirming State */}
           {modalState === "confirming" && (
             <div className="flex flex-col items-center py-8">
-              <svg className="animate-spin h-12 w-12 text-brand mb-4" viewBox="0 0 24 24">
+              <svg className="animate-spin h-12 w-12 text-primary mb-4" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
               </svg>
@@ -194,14 +194,14 @@ export default function BetModal({ isOpen, onClose, market, isYes, wallet, onSuc
           {/* Success State */}
           {modalState === "success" && (
             <div className="flex flex-col items-center py-8">
-              <div className="w-16 h-16 rounded-full bg-yes/20 flex items-center justify-center mb-4 animate-bounce">
-                <svg className="w-8 h-8 text-yes" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+              <div className="w-16 h-16 rounded-full bg-yes/20 flex items-center justify-center mb-4 animate-bounce shadow-2xl shadow-yes/60 border-2 border-yes/40">
+                <svg className="w-8 h-8 text-yes drop-shadow-[0_0_8px_rgba(34,197,94,0.8)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <p className="text-lg font-bold text-white">Bet Confirmed!</p>
+              <p className="text-lg font-bold text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">Bet Confirmed!</p>
               <p className="text-sm text-slate-400 mt-1">
-                Confirmed in <span className="text-brand font-semibold">{confirmationTime}ms</span>
+                Confirmed in <span className="text-primary font-semibold drop-shadow-[0_0_8px_rgba(139,92,246,0.6)]">{confirmationTime}ms</span>
               </p>
             </div>
           )}
@@ -209,18 +209,18 @@ export default function BetModal({ isOpen, onClose, market, isYes, wallet, onSuc
           {/* Error State */}
           {modalState === "error" && (
             <div className="flex flex-col items-center py-8">
-              <div className="w-16 h-16 rounded-full bg-no/20 flex items-center justify-center mb-4">
-                <svg className="w-8 h-8 text-no" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+              <div className="w-16 h-16 rounded-full bg-no/20 flex items-center justify-center mb-4 shadow-2xl shadow-no/60 border-2 border-no/40 animate-pulse">
+                <svg className="w-8 h-8 text-no drop-shadow-[0_0_8px_rgba(239,68,68,0.8)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </div>
-              <p className="text-lg font-bold text-white mb-2">Transaction Failed</p>
+              <p className="text-lg font-bold text-white mb-2 drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">Transaction Failed</p>
               <p className="text-sm text-slate-400 text-center mb-4 max-w-xs break-words">
                 {errorMessage}
               </p>
               <button
                 onClick={handleRetry}
-                className="px-6 py-2.5 rounded-xl bg-brand hover:bg-brand-hover text-white font-medium transition-colors"
+                className="px-6 py-2.5 rounded-xl bg-light text-bg font-medium shadow-lg hover:shadow-xl hover:shadow-primary/30 hover:scale-105 active:scale-95 transition-all duration-200"
               >
                 Try Again
               </button>
