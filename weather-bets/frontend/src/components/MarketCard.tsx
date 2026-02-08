@@ -42,7 +42,7 @@ export default function MarketCard({ market }: MarketCardProps) {
     }
     if (market.status === MarketStatus.RESOLVED) {
       return (
-        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-brand/15 text-brand border border-brand/30">
+        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/15 text-primary border border-primary/30">
           RESOLVED
         </span>
       );
@@ -57,7 +57,7 @@ export default function MarketCard({ market }: MarketCardProps) {
   return (
     <div
       onClick={() => navigate(`/market/${market.id}`)}
-      className="bg-bg-surface border border-border rounded-xl p-6 cursor-pointer transition-all duration-300 hover:shadow-lg hover:shadow-brand/10 hover:scale-[1.02] hover:border-brand/30 group"
+      className="bg-bg-surface border border-border rounded-xl p-6 cursor-pointer transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 hover:scale-[1.02] hover:border-primary/30 group"
     >
       {/* Header */}
       <div className="flex items-start justify-between mb-3">
@@ -86,7 +86,7 @@ export default function MarketCard({ market }: MarketCardProps) {
       {/* Footer info */}
       <div className="flex items-center justify-between text-xs text-slate-500">
         <span className="font-medium">
-          {formatMON(totalPool)} <span className="text-brand">MON</span> pool
+          {formatMON(totalPool)} <span className="text-primary">MON</span> pool
         </span>
         <span className={market.status === MarketStatus.OPEN ? "text-yes/80" : "text-slate-500"}>
           {market.status === MarketStatus.OPEN ? countdown : "Ended"}

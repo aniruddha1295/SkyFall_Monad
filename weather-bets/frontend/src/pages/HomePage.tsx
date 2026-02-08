@@ -79,7 +79,7 @@ export default function HomePage({ wallet }: HomePageProps) {
       <section className="text-center py-12 lg:py-20">
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
           Predict Weather.{" "}
-          <span className="text-brand">Hedge Risk.</span>{" "}
+          <span className="text-primary">Hedge Risk.</span>{" "}
           Win MON.
         </h1>
         <p className="mt-4 text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto">
@@ -87,7 +87,8 @@ export default function HomePage({ wallet }: HomePageProps) {
         </p>
         <button
           onClick={scrollToMarkets}
-          className="mt-8 px-8 py-3 rounded-lg bg-brand hover:bg-brand-hover text-white font-semibold text-lg transition-colors"
+          className="mt-8 px-8 py-3 rounded-lg bg-light text-bg hover:bg-light/90 shadow-lg font-semibold text-lg transition-all"
+          style={{ boxShadow: "0 0 20px rgba(56, 189, 248, 0.5)" }}
         >
           Explore Markets
         </button>
@@ -132,9 +133,9 @@ export default function HomePage({ wallet }: HomePageProps) {
           {STEPS.map(({ step, title, description }) => (
             <div
               key={step}
-              className="rounded-xl border border-border bg-bg-surface p-6 text-center hover:border-brand/50 transition-colors"
+              className="rounded-xl border border-border bg-bg-surface p-6 text-center hover:border-primary/50 transition-colors"
             >
-              <div className="w-12 h-12 rounded-full bg-brand/20 text-brand font-bold text-xl flex items-center justify-center mx-auto mb-4">
+              <div className="w-12 h-12 rounded-full bg-primary/20 text-primary font-bold text-xl flex items-center justify-center mx-auto mb-4">
                 {step}
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">

@@ -81,12 +81,12 @@ export default function BetModal({ isOpen, onClose, market, isYes, wallet, onSuc
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/60 backdrop-blur-md"
         onClick={modalState === "input" ? onClose : undefined}
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-md bg-bg-surface border border-border rounded-2xl shadow-2xl shadow-black/50 overflow-hidden">
+      <div className="relative w-full max-w-md bg-bg-surface border border-border rounded-2xl shadow-lg shadow-primary/20 overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between p-5 border-b border-border">
           <h2 className="text-lg font-bold text-white">Place Bet</h2>
@@ -129,9 +129,9 @@ export default function BetModal({ isOpen, onClose, market, isYes, wallet, onSuc
                     placeholder="0.0"
                     min="0"
                     step="0.01"
-                    className="w-full bg-bg-hover border border-border rounded-xl px-4 py-3 pr-16 text-white text-lg font-medium placeholder-slate-600 focus:outline-none focus:border-brand/50 focus:ring-1 focus:ring-brand/30 transition-colors"
+                    className="w-full bg-bg-hover border border-border rounded-xl px-4 py-3 pr-16 text-white text-lg font-medium placeholder-slate-600 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-colors"
                   />
-                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-medium text-brand">
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-medium text-primary">
                     MON
                   </span>
                 </div>
@@ -145,7 +145,7 @@ export default function BetModal({ isOpen, onClose, market, isYes, wallet, onSuc
                     onClick={() => setAmount(quickAmount)}
                     className={`flex-1 py-2 rounded-lg text-sm font-medium border transition-colors ${
                       amount === quickAmount
-                        ? "bg-brand/20 border-brand/40 text-brand"
+                        ? "bg-primary/20 border-primary/40 text-primary"
                         : "bg-bg-hover border-border text-slate-400 hover:text-white hover:border-slate-500"
                     }`}
                   >
@@ -182,7 +182,7 @@ export default function BetModal({ isOpen, onClose, market, isYes, wallet, onSuc
           {/* Confirming State */}
           {modalState === "confirming" && (
             <div className="flex flex-col items-center py-8">
-              <svg className="animate-spin h-12 w-12 text-brand mb-4" viewBox="0 0 24 24">
+              <svg className="animate-spin h-12 w-12 text-primary mb-4" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
               </svg>
@@ -201,7 +201,7 @@ export default function BetModal({ isOpen, onClose, market, isYes, wallet, onSuc
               </div>
               <p className="text-lg font-bold text-white">Bet Confirmed!</p>
               <p className="text-sm text-slate-400 mt-1">
-                Confirmed in <span className="text-brand font-semibold">{confirmationTime}ms</span>
+                Confirmed in <span className="text-primary font-semibold">{confirmationTime}ms</span>
               </p>
             </div>
           )}
@@ -220,7 +220,7 @@ export default function BetModal({ isOpen, onClose, market, isYes, wallet, onSuc
               </p>
               <button
                 onClick={handleRetry}
-                className="px-6 py-2.5 rounded-xl bg-brand hover:bg-brand-hover text-white font-medium transition-colors"
+                className="px-6 py-2.5 rounded-xl bg-light text-bg font-medium shadow-lg hover:shadow-primary/20 transition-all"
               >
                 Try Again
               </button>

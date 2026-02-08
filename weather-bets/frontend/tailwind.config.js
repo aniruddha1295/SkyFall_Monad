@@ -4,11 +4,36 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: { DEFAULT: "#0a0a0f", surface: "#14141f", hover: "#1e1e2e" },
-        border: { DEFAULT: "#2a2a3a" },
-        brand: { DEFAULT: "#8b5cf6", hover: "#a78bfa" },
-        yes: "#22c55e",
-        no: "#ef4444",
+        // Primary casino blue
+        primary: {
+          DEFAULT: '#0057ff',
+          hover: '#0045cc',
+        },
+
+        // Dark backgrounds
+        bg: {
+          DEFAULT: '#191919',
+          surface: '#242424',
+          hover: '#2e2e2e',
+        },
+
+        // Borders
+        border: '#474747',
+
+        // Keep YES/NO but align with casino theme
+        yes: '#02cb00',
+        no: '#d00d00',
+
+        // Status colors
+        success: '#02cb00',
+        error: '#d00d00',
+        warning: '#f97c00',
+
+        // Light accents
+        light: {
+          DEFAULT: '#ffffff',
+          grey: '#f9f9f9',
+        }
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
