@@ -175,10 +175,12 @@ contract WeatherBets {
             market.totalNoPool -= userBet.amount;
         }
 
+        uint256 originalAmount = userBet.amount;
+        userBet.amount = 0;
         userBet.claimed = true;
 
         payable(msg.sender).transfer(payout);
-        emit PositionExited(_marketId, msg.sender, userBet.amount, payout, feePercent);
+        emit PositionExited(_marketId, msg.sender, originalAmount, payout, feePercent);
     }
 
     /// @notice Resolve a market with the actual weather outcome (admin only)
