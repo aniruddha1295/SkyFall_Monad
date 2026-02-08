@@ -40,21 +40,20 @@ export default function MyBets({ wallet }: MyBetsProps) {
     setIsLoading(true);
     try {
       const markets = await getAllMarkets();
+      // Fetch all user bets in parallel instead of sequentially
+      const betResults = await Promise.allSettled(
+        markets.map((market) => getUserBet(market.id, wallet.address))
+      );
       const bets: UserBetInfo[] = [];
-      for (const market of markets) {
-        try {
-          const bet = await getUserBet(market.id, wallet.address);
-          if (bet.amount > 0n) {
-            const question = getMarketQuestion(
-              market.city,
-              market.condition,
-              market.operator,
-              market.threshold
-            );
-            bets.push({ market, bet, question });
-          }
-        } catch {
-          // User has no bet for this market
+      for (let i = 0; i < markets.length; i++) {
+        const result = betResults[i];
+        if (result.status === "fulfilled" && result.value.amount > 0n) {
+          const market = markets[i];
+          bets.push({
+            market,
+            bet: result.value,
+            question: getMarketQuestion(market.city, market.condition, market.operator, market.threshold),
+          });
         }
       }
       setUserBets(bets);
