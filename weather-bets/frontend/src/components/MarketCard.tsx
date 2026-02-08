@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Market } from "../types";
-import { MarketStatus, WeatherCondition } from "../types";
+import { MarketStatus } from "../types";
 import { formatMON, formatCountdown, getMarketQuestion } from "../lib/formatters";
 import { CONDITION_ICONS } from "../config/weather";
 import { useContract } from "../hooks/useContract";

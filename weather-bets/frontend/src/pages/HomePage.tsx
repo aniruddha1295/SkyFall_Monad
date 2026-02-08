@@ -42,7 +42,7 @@ const STEPS = [
   },
 ];
 
-export default function HomePage({ wallet }: HomePageProps) {
+export default function HomePage({ wallet: _wallet }: HomePageProps) {
   const { getAllMarkets } = useContract();
   const [markets, setMarkets] = useState<Market[]>([]);
   const [isLoading, setIsLoading] = useState(true);

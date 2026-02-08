@@ -11,7 +11,7 @@ interface NavbarProps {
   isConnecting: boolean;
 }
 
-export default function Navbar({ wallet, connect, disconnect, hasMetaMask, isConnecting }: NavbarProps) {
+export default function Navbar({ wallet, connect, disconnect: _disconnect, hasMetaMask, isConnecting }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
