@@ -48,6 +48,7 @@ contract WeatherBets {
     event BetPlaced(uint256 indexed marketId, address indexed bettor, bool isYes, uint256 amount);
     event MarketResolved(uint256 indexed marketId, bool outcome, uint256 totalPool);
     event WinningsClaimed(uint256 indexed marketId, address indexed bettor, uint256 payout);
+    event PositionExited(uint256 indexed marketId, address indexed bettor, uint256 originalAmount, uint256 exitPayout, uint256 feePercent);
 
     // ============ MODIFIERS ============
 
@@ -124,6 +125,60 @@ contract WeatherBets {
 
         marketBettors[_marketId].push(msg.sender);
         emit BetPlaced(_marketId, msg.sender, _isYes, msg.value);
+    }
+
+    /// @notice Exit a position early with dynamic time-based fee
+    function exitPosition(uint256 _marketId) external {
+        Market storage market = markets[_marketId];
+        require(market.status == MarketStatus.OPEN, "Market not open");
+        require(block.timestamp < market.resolutionTime, "Betting closed");
+
+        Bet storage userBet = bets[_marketId][msg.sender];
+        require(userBet.amount > 0, "No bet placed");
+        require(!userBet.claimed, "Already claimed");
+
+        // Calculate dynamic fee based on time remaining
+        uint256 timeRemaining = market.resolutionTime - block.timestamp;
+        uint256 feePercent;
+
+        if (timeRemaining > 6 hours) {
+            feePercent = 3;     // Low fee — plenty of time left
+        } else if (timeRemaining > 2 hours) {
+            feePercent = 5;     // Moderate fee — getting closer
+        } else {
+            feePercent = 10;    // High fee — close to resolution
+        }
+
+        // Calculate exit value based on current pool ratio
+        uint256 totalPool = market.totalYesPool + market.totalNoPool;
+        uint256 userPool = userBet.isYes ? market.totalYesPool : market.totalNoPool;
+
+        // Exit value: proportional share adjusted by pool balance
+        uint256 exitValue = (userBet.amount * totalPool) / (2 * userPool);
+
+        // Apply dynamic fee
+        uint256 fee = (exitValue * feePercent) / 100;
+        uint256 payout = exitValue - fee;
+
+        // Safety: can't withdraw more than original bet amount
+        if (payout > userBet.amount) {
+            payout = userBet.amount;
+        }
+
+        // Safety: ensure contract has enough balance
+        require(address(this).balance >= payout, "Insufficient contract balance");
+
+        // Update pools
+        if (userBet.isYes) {
+            market.totalYesPool -= userBet.amount;
+        } else {
+            market.totalNoPool -= userBet.amount;
+        }
+
+        userBet.claimed = true;
+
+        payable(msg.sender).transfer(payout);
+        emit PositionExited(_marketId, msg.sender, userBet.amount, payout, feePercent);
     }
 
     /// @notice Resolve a market with the actual weather outcome (admin only)
@@ -209,5 +264,42 @@ contract WeatherBets {
         uint256 distributable = totalPool - (totalPool * platformFeePercent / 100);
         uint256 winningPool = _isYes ? newYesPool : newNoPool;
         return (_amount * distributable) / winningPool;
+    }
+
+    /// @notice Calculate exit value and fee for a position
+    function getExitInfo(uint256 _marketId, address _user) external view returns (
+        uint256 exitValue,
+        uint256 feePercent,
+        uint256 payout
+    ) {
+        Market storage market = markets[_marketId];
+        Bet storage userBet = bets[_marketId][_user];
+
+        if (userBet.amount == 0 || userBet.claimed || market.status != MarketStatus.OPEN) {
+            return (0, 0, 0);
+        }
+
+        uint256 timeRemaining = market.resolutionTime > block.timestamp
+            ? market.resolutionTime - block.timestamp
+            : 0;
+
+        if (timeRemaining > 6 hours) {
+            feePercent = 3;
+        } else if (timeRemaining > 2 hours) {
+            feePercent = 5;
+        } else {
+            feePercent = 10;
+        }
+
+        uint256 totalPool = market.totalYesPool + market.totalNoPool;
+        uint256 userPool = userBet.isYes ? market.totalYesPool : market.totalNoPool;
+
+        exitValue = (userBet.amount * totalPool) / (2 * userPool);
+        uint256 fee = (exitValue * feePercent) / 100;
+        payout = exitValue - fee;
+
+        if (payout > userBet.amount) {
+            payout = userBet.amount;
+        }
     }
 }

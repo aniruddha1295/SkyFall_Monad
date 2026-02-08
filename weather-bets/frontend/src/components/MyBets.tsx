@@ -3,6 +3,7 @@ import type { Market, Bet, WalletState } from "../types";
 import { MarketStatus } from "../types";
 import { useContract } from "../hooks/useContract";
 import { formatMON, getMarketQuestion } from "../lib/formatters";
+import ExitModal from "./ExitModal";
 
 interface MyBetsProps {
   wallet: WalletState;
@@ -14,11 +15,21 @@ interface UserBetInfo {
   question: string;
 }
 
+interface ExitInfo {
+  exitValue: bigint;
+  feePercent: number;
+  payout: bigint;
+}
+
 export default function MyBets({ wallet }: MyBetsProps) {
-  const { getAllMarkets, getUserBet, claimWinnings } = useContract();
+  const { getAllMarkets, getUserBet, claimWinnings, getExitInfo } = useContract();
   const [userBets, setUserBets] = useState<UserBetInfo[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [claimingId, setClaimingId] = useState<number | null>(null);
+  const [isExitModalOpen, setIsExitModalOpen] = useState(false);
+  const [selectedMarketForExit, setSelectedMarketForExit] = useState<UserBetInfo | null>(null);
+  const [exitInfo, setExitInfo] = useState<ExitInfo | null>(null);
+  const [loadingExitId, setLoadingExitId] = useState<number | null>(null);
 
   const loadBets = useCallback(async () => {
     if (!wallet.address) {
@@ -71,6 +82,28 @@ export default function MyBets({ wallet }: MyBetsProps) {
     }
   };
 
+  const handleExitClick = async (betInfo: UserBetInfo) => {
+    if (!wallet.address) return;
+    setLoadingExitId(betInfo.market.id);
+    try {
+      const info = await getExitInfo(betInfo.market.id, wallet.address);
+      setSelectedMarketForExit(betInfo);
+      setExitInfo(info);
+      setIsExitModalOpen(true);
+    } catch (err: any) {
+      console.error("Failed to get exit info:", err);
+    } finally {
+      setLoadingExitId(null);
+    }
+  };
+
+  const handleExitSuccess = () => {
+    setIsExitModalOpen(false);
+    setSelectedMarketForExit(null);
+    setExitInfo(null);
+    loadBets(); // Refresh after exit
+  };
+
   if (!wallet.isConnected) {
     return (
       <div className="text-center py-16">
@@ -119,7 +152,6 @@ export default function MyBets({ wallet }: MyBetsProps) {
         const isResolved = market.status === MarketStatus.RESOLVED;
         const didWin = isResolved && bet.isYes === market.outcome;
         const canClaim = isResolved && didWin && !bet.claimed;
-        const totalPool = market.totalYesPool + market.totalNoPool;
 
         return (
           <div
@@ -191,6 +223,27 @@ export default function MyBets({ wallet }: MyBetsProps) {
                   </button>
                 )}
 
+                {/* Exit button for open markets */}
+                {market.status === MarketStatus.OPEN && !bet.claimed && (
+                  <button
+                    onClick={() => handleExitClick({ market, bet, question })}
+                    disabled={loadingExitId === market.id}
+                    className="px-4 py-2 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 font-medium text-sm transition-colors disabled:opacity-50"
+                  >
+                    {loadingExitId === market.id ? (
+                      <span className="flex items-center gap-2">
+                        <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                        </svg>
+                        Loading...
+                      </span>
+                    ) : (
+                      "Exit Now"
+                    )}
+                  </button>
+                )}
+
                 {/* Status pill */}
                 {market.status === MarketStatus.OPEN && (
                   <span className="text-xs px-2 py-0.5 rounded-full bg-yes/10 text-yes border border-yes/20">
@@ -207,6 +260,23 @@ export default function MyBets({ wallet }: MyBetsProps) {
           </div>
         );
       })}
+
+      {/* Exit Modal */}
+      {selectedMarketForExit && exitInfo && (
+        <ExitModal
+          isOpen={isExitModalOpen}
+          market={selectedMarketForExit.market}
+          userBet={selectedMarketForExit.bet}
+          exitInfo={exitInfo}
+          wallet={wallet}
+          onClose={() => {
+            setIsExitModalOpen(false);
+            setSelectedMarketForExit(null);
+            setExitInfo(null);
+          }}
+          onSuccess={handleExitSuccess}
+        />
+      )}
     </div>
   );
 }

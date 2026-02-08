@@ -31,4 +31,7 @@ export const WEATHER_BETS_ABI = [
   "event BetPlaced(uint256 indexed marketId, address indexed bettor, bool isYes, uint256 amount)",
   "event MarketResolved(uint256 indexed marketId, bool outcome, uint256 totalPool)",
   "event WinningsClaimed(uint256 indexed marketId, address indexed bettor, uint256 payout)",
+  "function exitPosition(uint256 _marketId) external",
+  "function getExitInfo(uint256 _marketId, address _user) external view returns (uint256 exitValue, uint256 feePercent, uint256 payout)",
+  "event PositionExited(uint256 indexed marketId, address indexed bettor, uint256 originalAmount, uint256 exitPayout, uint256 feePercent)",
 ] as const;

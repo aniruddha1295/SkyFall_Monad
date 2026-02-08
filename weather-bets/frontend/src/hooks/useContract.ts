@@ -101,8 +101,32 @@ export function useContract() {
     }
   }, [getContract]);
 
+  const exitPosition = useCallback(async (
+    signer: ethers.Signer,
+    marketId: number
+  ): Promise<{ receipt: ethers.TransactionReceipt; confirmationTime: number }> => {
+    setIsLoading(true);
+    try {
+      const contract = getContract(signer);
+      const startTime = Date.now();
+      const tx = await contract.exitPosition(marketId);
+      const receipt = await tx.wait();
+      const confirmationTime = Date.now() - startTime;
+      return { receipt, confirmationTime };
+    } finally {
+      setIsLoading(false);
+    }
+  }, [getContract]);
+
+  const getExitInfo = useCallback(async (marketId: number, userAddress: string): Promise<{ exitValue: bigint; feePercent: number; payout: bigint }> => {
+    const contract = getContract();
+    const [exitValue, feePercent, payout] = await contract.getExitInfo(marketId, userAddress);
+    return { exitValue, feePercent: Number(feePercent), payout };
+  }, [getContract]);
+
   return {
     getMarketCount, getMarket, getAllMarkets, getOdds,
-    getUserBet, getPotentialPayout, placeBet, claimWinnings, isLoading,
+    getUserBet, getPotentialPayout, placeBet, claimWinnings,
+    exitPosition, getExitInfo, isLoading,
   };
 }
