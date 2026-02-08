@@ -43,8 +43,9 @@ const STEPS = [
 ];
 
 export default function HomePage({ wallet: _wallet }: HomePageProps) {
-  const { getAllMarkets } = useContract();
+  const { getAllMarkets, getOdds } = useContract();
   const [markets, setMarkets] = useState<Market[]>([]);
+  const [oddsMap, setOddsMap] = useState<Record<number, { yesPercent: number; noPercent: number }>>({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const marketGridRef = useRef<HTMLDivElement>(null);
@@ -56,7 +57,16 @@ export default function HomePage({ wallet: _wallet }: HomePageProps) {
       setError(null);
       try {
         const data = await getAllMarkets();
-        if (!cancelled) setMarkets(data);
+        if (cancelled) return;
+        setMarkets(data);
+        // Fetch all odds in parallel in one batch
+        const oddsResults = await Promise.all(
+          data.map((m) => getOdds(m.id).catch(() => ({ yesPercent: 50, noPercent: 50 })))
+        );
+        if (cancelled) return;
+        const map: Record<number, { yesPercent: number; noPercent: number }> = {};
+        data.forEach((m, i) => { map[m.id] = oddsResults[i]; });
+        setOddsMap(map);
       } catch (err: any) {
         if (!cancelled) setError(err.message || "Failed to load markets");
       } finally {
@@ -67,7 +77,7 @@ export default function HomePage({ wallet: _wallet }: HomePageProps) {
     return () => {
       cancelled = true;
     };
-  }, [getAllMarkets]);
+  }, [getAllMarkets, getOdds]);
 
   const scrollToMarkets = () => {
     marketGridRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -119,7 +129,7 @@ export default function HomePage({ wallet: _wallet }: HomePageProps) {
             </p>
           </div>
         ) : (
-          <MarketList markets={markets} />
+          <MarketList markets={markets} oddsMap={oddsMap} />
         )}
       </section>
 

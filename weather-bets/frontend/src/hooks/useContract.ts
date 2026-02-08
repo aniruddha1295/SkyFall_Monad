@@ -44,12 +44,9 @@ export function useContract() {
 
   const getAllMarkets = useCallback(async (): Promise<Market[]> => {
     const count = await getMarketCount();
-    const markets: Market[] = [];
-    for (let i = 0; i < count; i++) {
-      const market = await getMarket(i);
-      markets.push(market);
-    }
-    return markets;
+    if (count === 0) return [];
+    const promises = Array.from({ length: count }, (_, i) => getMarket(i));
+    return Promise.all(promises);
   }, [getMarketCount, getMarket]);
 
   const getOdds = useCallback(async (marketId: number): Promise<{ yesPercent: number; noPercent: number }> => {

@@ -3,9 +3,10 @@ import MarketCard from "./MarketCard";
 
 interface MarketListProps {
   markets: Market[];
+  oddsMap?: Record<number, { yesPercent: number; noPercent: number }>;
 }
 
-export default function MarketList({ markets }: MarketListProps) {
+export default function MarketList({ markets, oddsMap }: MarketListProps) {
   if (markets.length === 0) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -37,7 +38,7 @@ export default function MarketList({ markets }: MarketListProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {markets.map((market) => (
-        <MarketCard key={market.id} market={market} />
+        <MarketCard key={market.id} market={market} odds={oddsMap?.[market.id]} />
       ))}
     </div>
   );

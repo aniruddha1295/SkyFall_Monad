@@ -4,22 +4,17 @@ import type { Market } from "../types";
 import { MarketStatus } from "../types";
 import { formatMON, formatCountdown, getMarketQuestion } from "../lib/formatters";
 import { CONDITION_ICONS } from "../config/weather";
-import { useContract } from "../hooks/useContract";
 import OddsBar from "./OddsBar";
 
 interface MarketCardProps {
   market: Market;
+  odds?: { yesPercent: number; noPercent: number };
 }
 
-export default function MarketCard({ market }: MarketCardProps) {
+export default function MarketCard({ market, odds: propOdds }: MarketCardProps) {
   const navigate = useNavigate();
-  const { getOdds } = useContract();
-  const [odds, setOdds] = useState({ yesPercent: 50, noPercent: 50 });
+  const odds = propOdds || { yesPercent: 50, noPercent: 50 };
   const [countdown, setCountdown] = useState(formatCountdown(market.resolutionTime));
-
-  useEffect(() => {
-    getOdds(market.id).then(setOdds).catch(() => {});
-  }, [market.id, getOdds]);
 
   useEffect(() => {
     const interval = setInterval(() => {
