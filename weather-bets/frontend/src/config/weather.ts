@@ -1,4 +1,4 @@
-export const WEATHER_API_BASE = "http://localhost:3001/api/weather";
+export const WEATHER_API_BASE = "/api/weather";
 
 export const CONDITION_LABELS: Record<number, string> = {
   0: "Rainfall",

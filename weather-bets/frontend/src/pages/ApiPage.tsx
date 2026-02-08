@@ -142,7 +142,7 @@ export default function ApiPage() {
     setFetchError(null);
 
     try {
-      const url = `http://localhost:3001/api/premium/${selectedEndpoint}/${selectedCity.toLowerCase()}`;
+      const url = `/api/premium/${selectedEndpoint}/${selectedCity.toLowerCase()}`;
       const res = await fetch(url);
       setStatusCode(res.status);
       const data = await res.json();
@@ -309,7 +309,7 @@ export default function ApiPage() {
           <div className="mb-4">
             <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Request</span>
             <code className="block mt-1 text-sm font-mono bg-bg-hover rounded-lg px-3 py-2 text-slate-300">
-              GET http://localhost:3001/api/premium/{selectedEndpoint}/{selectedCity.toLowerCase()}
+              GET /api/premium/{selectedEndpoint}/{selectedCity.toLowerCase()}
             </code>
           </div>
 
