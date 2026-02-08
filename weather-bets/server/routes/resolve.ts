@@ -12,7 +12,7 @@ router.post("/:marketId", async (req, res) => {
   }
 
   try {
-    const marketId = parseInt(req.params.marketId);
+    const marketId = parseInt(req.params.marketId as string);
     if (isNaN(marketId)) {
       return res.status(400).json({ error: "Invalid market ID" });
     }

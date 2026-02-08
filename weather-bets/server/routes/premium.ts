@@ -53,7 +53,7 @@ function paymentRequired(
 // Returns hourly forecast enriched with analysis data.
 // ---------------------------------------------------------------------------
 router.get("/forecast/:city", async (req: Request, res: Response) => {
-  const city = req.params.city;
+  const city = req.params.city as string;
   const payment = req.headers["x-payment"];
 
   if (!payment) {
@@ -104,7 +104,7 @@ router.get("/forecast/:city", async (req: Request, res: Response) => {
 // OpenWeather free tier does not provide true historical data).
 // ---------------------------------------------------------------------------
 router.get("/historical/:city", async (req: Request, res: Response) => {
-  const city = req.params.city;
+  const city = req.params.city as string;
   const payment = req.headers["x-payment"];
 
   if (!payment) {
@@ -156,7 +156,7 @@ router.get("/historical/:city", async (req: Request, res: Response) => {
 // Returns risk assessment and weather alerts based on current conditions.
 // ---------------------------------------------------------------------------
 router.get("/alerts/:city", async (req: Request, res: Response) => {
-  const city = req.params.city;
+  const city = req.params.city as string;
   const payment = req.headers["x-payment"];
 
   if (!payment) {

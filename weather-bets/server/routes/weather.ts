@@ -5,7 +5,7 @@ const router = Router();
 
 router.get("/:city", async (req, res) => {
   try {
-    const data = await fetchCurrentWeather(req.params.city);
+    const data = await fetchCurrentWeather(req.params.city as string);
     res.json(data);
   } catch (err: any) {
     res.status(500).json({ error: err.message || "Failed to fetch weather" });
@@ -14,7 +14,7 @@ router.get("/:city", async (req, res) => {
 
 router.get("/:city/forecast", async (req, res) => {
   try {
-    const data = await fetchForecast(req.params.city);
+    const data = await fetchForecast(req.params.city as string);
     res.json(data);
   } catch (err: any) {
     res.status(500).json({ error: err.message || "Failed to fetch forecast" });
