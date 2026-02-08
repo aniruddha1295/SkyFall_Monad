@@ -1,0 +1,90 @@
+# Sprint Status - WeatherBets
+# Generated: 2026-02-08
+# Project: WeatherBets
+# Tracking System: file-system
+# Story Location: _bmad-output/implementation-artifacts
+
+# Status Definitions:
+# Epic: backlog -> in-progress -> done
+# Story: backlog -> ready-for-dev -> in-progress -> review -> done
+
+development_status:
+  epics:
+    - id: epic-1
+      title: "Project Foundation & Smart Contract"
+      status: backlog
+      stories:
+        - id: "1.1"
+          title: "Set Up Project Structure and Smart Contract"
+          status: backlog
+          story_file: "story-1.1.md"
+        - id: "1.2"
+          title: "Deploy Contract and Seed Demo Markets"
+          status: backlog
+          story_file: "story-1.2.md"
+        - id: "1.3"
+          title: "Wallet Connection with Network Management"
+          status: backlog
+          story_file: "story-1.3.md"
+        - id: "1.4"
+          title: "App Shell with Navigation"
+          status: backlog
+          story_file: "story-1.4.md"
+
+    - id: epic-2
+      title: "Weather Market Discovery"
+      status: backlog
+      stories:
+        - id: "2.1"
+          title: "Market List with Grid Display"
+          status: backlog
+          story_file: "story-2.1.md"
+        - id: "2.2"
+          title: "Odds Bar Visualization"
+          status: backlog
+          story_file: "story-2.2.md"
+        - id: "2.3"
+          title: "Market Detail Page"
+          status: backlog
+          story_file: "story-2.3.md"
+
+    - id: epic-3
+      title: "Betting Experience"
+      status: backlog
+      stories:
+        - id: "3.1"
+          title: "Bet Placement Flow"
+          status: backlog
+          story_file: "story-3.1.md"
+        - id: "3.2"
+          title: "Speed Demo Component"
+          status: backlog
+          story_file: "story-3.2.md"
+
+    - id: epic-4
+      title: "Portfolio & Claims"
+      status: backlog
+      stories:
+        - id: "4.1"
+          title: "My Bets Portfolio Page"
+          status: backlog
+          story_file: "story-4.1.md"
+        - id: "4.2"
+          title: "Claim Winnings Flow"
+          status: backlog
+          story_file: "story-4.2.md"
+
+    - id: epic-5
+      title: "Weather Data & Resolution"
+      status: backlog
+      stories:
+        - id: "5.1"
+          title: "Weather Data Backend & Display"
+          status: backlog
+          story_file: "story-5.1.md"
+        - id: "5.2"
+          title: "Admin Market Resolution"
+          status: backlog
+          story_file: "story-5.2.md"
+
+  retrospectives: []
