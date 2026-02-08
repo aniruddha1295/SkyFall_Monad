@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WeatherBets | Predict Weather, Win MON</title>
+  </head>
+  <body style="background-color: #0a0a0f; color: #f8fafc;">
+    <div id="error-display" style="padding:40px;font-family:monospace;color:#ef4444;display:none;white-space:pre-wrap;"></div>
+    <div id="root"></div>
+    <script>
+      window.onerror = function(msg, src, line, col, err) {
+        var el = document.getElementById('error-display');
+        el.style.display = 'block';
+        el.textContent = 'UNCAUGHT ERROR:\n' + msg + '\nSource: ' + src + ':' + line + ':' + col + '\n\n' + (err && err.stack ? err.stack : '');
+      };
+      window.addEventListener('unhandledrejection', function(e) {
+        var el = document.getElementById('error-display');
+        el.style.display = 'block';
+        el.textContent = 'UNHANDLED PROMISE REJECTION:\n' + (e.reason && e.reason.stack ? e.reason.stack : e.reason);
+      });
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
