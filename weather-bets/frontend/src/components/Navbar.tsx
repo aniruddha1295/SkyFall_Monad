@@ -40,6 +40,12 @@ export default function Navbar({ wallet, connect, disconnect, hasMetaMask, isCon
             >
               My Bets
             </Link>
+            <Link
+              to="/api"
+              className="text-slate-300 hover:text-white font-medium transition-colors"
+            >
+              API
+            </Link>
           </div>
 
           {/* Right: Wallet (desktop) */}
@@ -128,6 +134,13 @@ export default function Navbar({ wallet, connect, disconnect, hasMetaMask, isCon
             className="block py-2 px-3 rounded-lg text-slate-300 hover:text-white hover:bg-bg-hover font-medium transition-colors"
           >
             My Bets
+          </Link>
+          <Link
+            to="/api"
+            onClick={() => setMobileOpen(false)}
+            className="block py-2 px-3 rounded-lg text-slate-300 hover:text-white hover:bg-bg-hover font-medium transition-colors"
+          >
+            API
           </Link>
 
           <div className="pt-2 border-t border-border">
