@@ -76,22 +76,29 @@ export default function HomePage({ wallet }: HomePageProps) {
   return (
     <div className="space-y-16">
       {/* Hero Section */}
-      <section className="text-center py-12 lg:py-20">
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
-          Predict Weather.{" "}
-          <span className="text-primary">Hedge Risk.</span>{" "}
-          Win MON.
-        </h1>
-        <p className="mt-4 text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto">
-          Powered by Monad's parallel EVM
-        </p>
-        <button
-          onClick={scrollToMarkets}
-          className="mt-8 px-8 py-3 rounded-lg bg-light text-bg hover:bg-light/90 shadow-lg font-semibold text-lg transition-all"
-          style={{ boxShadow: "0 0 20px rgba(56, 189, 248, 0.5)" }}
-        >
-          Explore Markets
-        </button>
+      <section className="text-center py-16 lg:py-28 relative overflow-hidden">
+        {/* Gradient Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-purple-500/10 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(56,189,248,0.1),transparent_50%)] pointer-events-none" />
+
+        {/* Content */}
+        <div className="relative z-10">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white leading-tight drop-shadow-[0_0_30px_rgba(56,189,248,0.8)]">
+            Predict Weather.{" "}
+            <span className="text-primary drop-shadow-[0_0_40px_rgba(56,189,248,1)]">Hedge Risk.</span>{" "}
+            Win MON.
+          </h1>
+          <p className="mt-6 text-xl sm:text-2xl text-slate-300 max-w-2xl mx-auto font-medium">
+            Powered by Monad's parallel EVM
+          </p>
+          <button
+            onClick={scrollToMarkets}
+            className="mt-10 px-10 py-4 rounded-lg bg-gradient-to-r from-primary to-light text-bg hover:from-light hover:to-primary shadow-lg font-bold text-xl transition-all transform hover:scale-105 hover:shadow-[0_0_40px_rgba(56,189,248,0.8)] animate-pulse-glow"
+            style={{ boxShadow: "0 0 30px rgba(56, 189, 248, 0.7)" }}
+          >
+            Explore Markets
+          </button>
+        </div>
       </section>
 
       {/* Market Grid */}

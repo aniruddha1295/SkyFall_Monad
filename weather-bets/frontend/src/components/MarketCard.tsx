@@ -57,7 +57,7 @@ export default function MarketCard({ market }: MarketCardProps) {
   return (
     <div
       onClick={() => navigate(`/market/${market.id}`)}
-      className="bg-bg-surface border border-border rounded-xl p-6 cursor-pointer transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 hover:scale-[1.02] hover:border-primary/30 group"
+      className="backdrop-blur-sm bg-bg-surface/90 border-2 border-border rounded-xl p-6 cursor-pointer transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-primary/30 hover:scale-[1.02] hover:border-primary/50 hover:ring-2 hover:ring-primary/20 group"
     >
       {/* Header */}
       <div className="flex items-start justify-between mb-3">

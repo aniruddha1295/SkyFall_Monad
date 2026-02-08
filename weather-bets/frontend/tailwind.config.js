@@ -38,6 +38,19 @@ export default {
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
       },
+      fontSize: {
+        'display': ['4rem', { lineHeight: '1.1', fontWeight: '700' }],      // 64px
+        'headline': ['2.75rem', { lineHeight: '1.2', fontWeight: '700' }],  // 44px
+        'subheading': ['1.25rem', { lineHeight: '1.4', fontWeight: '600' }], // 20px
+        'body': ['1rem', { lineHeight: '1.5', fontWeight: '400' }],          // 16px
+        'caption': ['0.75rem', { lineHeight: '1.4', fontWeight: '400' }],    // 12px
+      },
+      fontWeight: {
+        normal: '400',
+        semibold: '600',
+        bold: '700',
+        black: '900',
+      },
     },
   },
   plugins: [],
