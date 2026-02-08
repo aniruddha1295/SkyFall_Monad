@@ -21,6 +21,7 @@ export default function MarketPage({ wallet }: MarketPageProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const [warning, setWarning] = useState<string | null>(null);
   const [isBetModalOpen, setIsBetModalOpen] = useState(false);
   const [betSide, setBetSide] = useState<boolean>(true); // true = YES, false = NO
   const [confirmationTime, setConfirmationTime] = useState<number | null>(null);
@@ -64,9 +65,10 @@ export default function MarketPage({ wallet }: MarketPageProps) {
 
   const handleBetClick = (isYes: boolean) => {
     if (!wallet.isConnected) {
-      setError("Please connect your wallet to place a bet");
+      setWarning("Please connect your wallet to place a bet");
       return;
     }
+    setWarning(null);
     setBetSide(isYes);
     setIsBetModalOpen(true);
   };
@@ -107,6 +109,15 @@ export default function MarketPage({ wallet }: MarketPageProps) {
 
   return (
     <div className="space-y-8">
+      {/* Wallet warning banner */}
+      {warning && (
+        <div className="flex items-center justify-between px-4 py-3 rounded-xl bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 text-sm">
+          <span>{warning}</span>
+          <button onClick={() => setWarning(null)} className="ml-4 text-yellow-500 hover:text-yellow-300">
+            ✕
+          </button>
+        </div>
+      )}
       {/* Main Layout: 60/40 on desktop, stacked on mobile */}
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
         {/* Left Column: Market Details */}
