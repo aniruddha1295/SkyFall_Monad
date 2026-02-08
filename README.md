@@ -8,6 +8,8 @@
 
 # WeatherBet - Weather Prediction Markets on Monad
 
+**[Live Demo](https://weather-bet-nine.vercel.app/)**
+
 > **Predict weather. Hedge risk. Win MON — powered by Monad's parallel execution for instant settlement.**
 
 WeatherBet is a **consumer-facing decentralized prediction market** where users bet on real-world weather outcomes using MON tokens on the **Monad blockchain**. Farmers, event planners, street vendors, or casual users can hedge against weather risk by placing simple YES/NO bets — with **early exit**, **live weather data**, and a **monetized premium API via x402**.
@@ -251,7 +253,7 @@ The `WeatherBets.sol` contract implements:
 | `getExitInfo(marketId, user)` | Preview exit value, fee tier, and payout |
 | `getMarket()`, `getOdds()`, `getUserBet()`, `getPotentialPayout()` | View functions |
 
-**Deployed on Monad Testnet:** [`0x9F597D174Bd8A0625f7FC9B6d4577D605758ad8E`](https://testnet.monadexplorer.com/address/0x9F597D174Bd8A0625f7FC9B6d4577D605758ad8E)
+**Deployed on Monad Testnet:** [`0x76ce5a2C951A96c9f8B748E8beaAcD1cb806543c`](https://testnet.monadexplorer.com/address/0x76ce5a2C951A96c9f8B748E8beaAcD1cb806543c)
 
 ---
 
