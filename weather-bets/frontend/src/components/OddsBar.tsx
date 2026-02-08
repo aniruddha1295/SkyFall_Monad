@@ -18,10 +18,10 @@ export default function OddsBar({ yesPercent, noPercent, yesPool, noPool }: Odds
 
   return (
     <div className="space-y-1.5">
-      <div className="flex w-full h-8 rounded-lg overflow-hidden relative border border-border shadow-lg">
+      <div className="flex w-full h-8 rounded-lg overflow-hidden relative">
         {/* YES side */}
         <div
-          className="relative flex items-center justify-center transition-all duration-500 ease-out bg-yes/80 hover:bg-yes cursor-default shadow-inner"
+          className="relative flex items-center justify-center transition-all duration-500 ease-out bg-yes/80 hover:bg-yes cursor-default"
           style={{ width: `${yesWidth}%` }}
           onMouseEnter={() => setHoveredSide("yes")}
           onMouseLeave={() => setHoveredSide(null)}
@@ -40,7 +40,7 @@ export default function OddsBar({ yesPercent, noPercent, yesPool, noPool }: Odds
 
         {/* NO side */}
         <div
-          className="relative flex items-center justify-center transition-all duration-500 ease-out bg-no/80 hover:bg-no cursor-default shadow-inner"
+          className="relative flex items-center justify-center transition-all duration-500 ease-out bg-no/80 hover:bg-no cursor-default"
           style={{ width: `${noWidth}%` }}
           onMouseEnter={() => setHoveredSide("no")}
           onMouseLeave={() => setHoveredSide(null)}

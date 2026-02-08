@@ -38,7 +38,7 @@ export default function MarketDetail({ market, odds, onBet, userBet }: MarketDet
     }
     if (market.status === MarketStatus.RESOLVED) {
       return (
-        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary/15 text-primary border border-primary/30">
+        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-brand/15 text-brand border border-brand/30">
           RESOLVED
         </span>
       );
@@ -98,25 +98,25 @@ export default function MarketDetail({ market, odds, onBet, userBet }: MarketDet
 
       {/* Pool Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="bg-bg-hover rounded-lg p-4 text-center shadow-lg shadow-primary/10">
+        <div className="bg-bg-hover rounded-lg p-4 text-center">
           <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Total Pool</p>
           <p className="text-lg font-bold text-white">
-            {formatMON(totalPool)} <span className="text-primary text-sm">MON</span>
+            {formatMON(totalPool)} <span className="text-brand text-sm">MON</span>
           </p>
         </div>
-        <div className="bg-bg-hover rounded-lg p-4 text-center shadow-lg">
+        <div className="bg-bg-hover rounded-lg p-4 text-center">
           <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">YES Pool</p>
           <p className="text-lg font-bold text-yes">
             {formatMON(market.totalYesPool)} <span className="text-sm opacity-70">MON</span>
           </p>
         </div>
-        <div className="bg-bg-hover rounded-lg p-4 text-center shadow-lg">
+        <div className="bg-bg-hover rounded-lg p-4 text-center">
           <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">NO Pool</p>
           <p className="text-lg font-bold text-no">
             {formatMON(market.totalNoPool)} <span className="text-sm opacity-70">MON</span>
           </p>
         </div>
-        <div className="bg-bg-hover rounded-lg p-4 text-center shadow-lg">
+        <div className="bg-bg-hover rounded-lg p-4 text-center">
           <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Bettors</p>
           <p className="text-lg font-bold text-slate-200">--</p>
         </div>
@@ -148,13 +148,13 @@ export default function MarketDetail({ market, odds, onBet, userBet }: MarketDet
         <div className="flex flex-col sm:flex-row gap-4">
           <button
             onClick={() => onBet(true)}
-            className="flex-1 py-4 rounded-xl bg-yes/15 border-2 border-yes/40 text-yes text-lg font-bold shadow-lg hover:bg-yes/25 hover:border-yes/60 hover:shadow-yes/20 transition-all duration-200 active:scale-[0.98]"
+            className="flex-1 py-4 rounded-xl bg-yes/15 border-2 border-yes/40 text-yes text-lg font-bold hover:bg-yes/25 hover:border-yes/60 transition-all duration-200 active:scale-[0.98]"
           >
             Bet YES
           </button>
           <button
             onClick={() => onBet(false)}
-            className="flex-1 py-4 rounded-xl bg-no/15 border-2 border-no/40 text-no text-lg font-bold shadow-lg hover:bg-no/25 hover:border-no/60 hover:shadow-no/20 transition-all duration-200 active:scale-[0.98]"
+            className="flex-1 py-4 rounded-xl bg-no/15 border-2 border-no/40 text-no text-lg font-bold hover:bg-no/25 hover:border-no/60 transition-all duration-200 active:scale-[0.98]"
           >
             Bet NO
           </button>
