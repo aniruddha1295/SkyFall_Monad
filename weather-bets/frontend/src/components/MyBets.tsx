@@ -42,7 +42,7 @@ export default function MyBets({ wallet }: MyBetsProps) {
       const markets = await getAllMarkets();
       // Fetch all user bets in parallel instead of sequentially
       const betResults = await Promise.allSettled(
-        markets.map((market) => getUserBet(market.id, wallet.address))
+        markets.map((market) => getUserBet(market.id, wallet.address!))
       );
       const bets: UserBetInfo[] = [];
       for (let i = 0; i < markets.length; i++) {
