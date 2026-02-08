@@ -68,7 +68,14 @@ export default function HomePage({ wallet: _wallet }: HomePageProps) {
         data.forEach((m, i) => { map[m.id] = oddsResults[i]; });
         setOddsMap(map);
       } catch (err: any) {
-        if (!cancelled) setError(err.message || "Failed to load markets");
+        if (!cancelled) {
+          const msg = err.message || "";
+          if (msg.includes("CALL_EXCEPTION") || msg.includes("revert")) {
+            setError("Unable to reach the contract. The RPC may be temporarily unavailable — please try again.");
+          } else {
+            setError(msg || "Failed to load markets");
+          }
+        }
       } finally {
         if (!cancelled) setIsLoading(false);
       }
